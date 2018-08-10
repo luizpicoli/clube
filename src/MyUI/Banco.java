@@ -32,5 +32,11 @@ public class Banco {
         Banco_Jogadores.add(jog);
         jog = new Jogador ("Neymar", "20800055010", 4000f);
         Banco_Jogadores.add(jog);
+        jog = new Jogador ("Angelo", "208004435010", 2f);
+        Jogadores_Clube.add(jog);
+        jog = new Jogador ("Edécio", "20800055010", 4000f);
+        Jogadores_Clube.add(jog);
+        jog = new Jogador ("Gladimir", " Idade: 95", -25f);
+        Jogadores_Clube.add(jog);
     }
 }
