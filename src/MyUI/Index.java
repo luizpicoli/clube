@@ -1,6 +1,10 @@
 package MyUI;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Index extends javax.swing.JFrame {
 
@@ -98,6 +102,11 @@ public class Index extends javax.swing.JFrame {
         jMenu1.add(bt_Salvar);
 
         bt_Carregar.setText("Carregar");
+        bt_Carregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_CarregarActionPerformed(evt);
+            }
+        });
         jMenu1.add(bt_Carregar);
 
         bt_Sair.setText("Sair");
@@ -204,13 +213,34 @@ public class Index extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SalvarActionPerformed
-        // TODO add your handling code here:
+        try {
+                    // Gera o Arquivo para armazenar no local:
+                    FileOutputStream arquivo = new FileOutputStream("saida.dat");
+                    //Classe responsavel por inserir os objetos
+                    ObjectOutputStream objGravar = new ObjectOutputStream(arquivo);
+                    
+                    
+                    // Gravar objeto!
+                    objGravar.writeObject(banco);
+                    objGravar.flush();
+                    objGravar.close();
+                    arquivo.flush();
+                    arquivo.close();
+                    JOptionPane.showMessageDialog(null, "Objeto Gravado com sucesso!");                   
+                } catch (Exception p) {
+                    p.printStackTrace();
+                }
     }//GEN-LAST:event_bt_SalvarActionPerformed
 
     private void bt_FolhadePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_FolhadePagamentoActionPerformed
         Clube_FolhaDePagamento temp = new Clube_FolhaDePagamento();
         PainelP.add(temp);
         temp.setVisible(true);
+        float pag = 0;
+        for (int x = 0; x < banco.Jogadores_Clube.size(); x++) {
+            pag += banco.Jogadores_Clube.get(x).salario;
+        }
+        JOptionPane.showMessageDialog(null, "Folha de pagamento do mês: \n\n R$ " + pag);
     }//GEN-LAST:event_bt_FolhadePagamentoActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -254,7 +284,34 @@ public class Index extends javax.swing.JFrame {
         Clube_Financeiro temp = new Clube_Financeiro();
         PainelP.add(temp);
         temp.setVisible(true);
+        float pag = 0;
+        JOptionPane.showMessageDialog(null, "Dinheiro em Caixa: \n\n R$ " + banco.DinheiroClube + ".00");
     }//GEN-LAST:event_bt_FinanceiroActionPerformed
+
+    private void bt_CarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_CarregarActionPerformed
+        try {
+ 
+                //Carrega o arquivo
+ 
+                FileInputStream arquivoLeitura = new FileInputStream("saida.dat");
+ 
+                // Classe responsavel por recuperar os objetos do arquivo
+ 
+                ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
+ 
+                banco = (Banco) objLeitura.readObject();
+ 
+                objLeitura.close();
+ 
+                arquivoLeitura.close();
+    }
+ 
+    catch(Exception e) {
+ 
+      e.printStackTrace();
+ 
+    }
+    }//GEN-LAST:event_bt_CarregarActionPerformed
 
     public static void main(String args[]) {
         

@@ -1,10 +1,15 @@
 package MyUI;
 import java.util.ArrayList;
+import java.util.Random;
+import java.io.Serializable;
 
-public class Banco {
+public class Banco implements Serializable {
     ArrayList<Jogador> Jogadores_Clube = new ArrayList();
     ArrayList<Jogador> Jogadores_Mercado = new ArrayList ();
     ArrayList<Jogador> Banco_Jogadores = new ArrayList();
+    
+    int DinheiroClube;
+    
     
     public Banco () {
         // Bando de dados dos jogadores:
@@ -38,5 +43,8 @@ public class Banco {
         Jogadores_Clube.add(jog);
         jog = new Jogador ("Gladimir", " Idade: 95", -25f);
         Jogadores_Clube.add(jog);
+        
+        Random valor = new Random ();
+        DinheiroClube = 100000 + valor.nextInt(99900000);
     }
 }

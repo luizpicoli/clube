@@ -1,6 +1,7 @@
 package MyUI;
+import java.io.Serializable;
 
-public class Jogador {
+public class Jogador implements Serializable {
     String nome;
     String cpf;
     float salario;
